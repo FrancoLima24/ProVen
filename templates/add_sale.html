@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Venta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Registrar Venta</h1>
+    <form method="POST" action="{{ url_for('add_sale') }}">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            <label for="producto">Producto</label>
+            {{ form.producto(class="form-control") }}
+        </div>
+        
+        <div>
+            <label for="cantidad">Cantidad</label>
+            {{ form.cantidad(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrar Venta</button>
+    </form>
+    <a href="{{ url_for('index') }}">Volver a la lista</a>
+</body>
+</html>

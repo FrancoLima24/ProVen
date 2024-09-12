@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Stock</h1>
+
+        <!-- Formulario para agregar stock utilizando StockForm -->
+        <form action="{{ url_for('add_stock') }}" method="POST">
+            {{ form.hidden_tag() }}  <!-- Para evitar ataques CSRF -->
+
+            <label for="producto">Nombre del producto:</label>
+            {{ form.producto }}  <!-- Campo del producto proporcionado por StockForm -->
+
+            <label for="cantidad">Cantidad:</label>
+            {{ form.cantidad }}  <!-- Campo para la cantidad proporcionado por StockForm -->
+
+            <label for="fecha_ingreso">Fecha de ingreso:</label>
+            {{ form.fecha_ingreso }}  <!-- Campo para la fecha de ingreso proporcionado por StockForm -->
+
+            <label for="fecha_vencimiento">Fecha de vencimiento:</label>
+            {{ form.fecha_vencimiento }}  <!-- Campo para la fecha de vencimiento proporcionado por StockForm -->
+
+            <button type="submit">Agregar stock</button>
+        </form>
+
+        <!-- Contenedor para la lista de productos con stock -->
+        <div class="stock-list-container">
+            <h2>Lista de Stock Disponible</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Fecha de Ingreso</th>
+                            <th>Fecha de Vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop para mostrar el stock disponible -->
+                        {% for item in stock_items %}
+                        <tr>
+                            <td>{{ item.producto.nombre }}</td>  <!-- Acceso a la relación con Producto -->
+                            <td>{{ item.fecha_ingreso }}</td>  <!-- Fecha de ingreso -->
+                            <td>{{ item.fecha_vencimiento }}</td>  <!-- Fecha de vencimiento -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock de Productos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Gestión de Stock</h1>
+
+    <!-- Campo de búsqueda -->
+    <div class="search-container">
+        <label for="search">Buscar Producto:</label>
+        <input type="text" id="search" placeholder="Buscar por nombre..." onkeyup="filterTable()">
+    </div>
+
+    <!-- Tabla de Productos y Stock -->
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Nombre &#x25B2;</th>
+                <th onclick="sortTable(1)">Categoría &#x25B2;</th>
+                <th onclick="sortTable(2)">Precio de Compra &#x25B2;</th>
+                <th onclick="sortTable(3)">Precio de Venta &#x25B2;</th>
+                <th onclick="sortTable(4)">Stock Disponible &#x25B2;</th>
+                <th onclick="sortTable(5)">Fecha de Vencimiento &#x25B2;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.precio_compra }}</td>
+                <td>{{ producto.precio_venta }}</td>
+                <td>{{ producto.stock_actual }}</td>
+                <td>{{ producto.fecha_vencimiento }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        // Función para buscar productos en la tabla
+        function filterTable() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const table = document.getElementById('productTable');
+            const tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName('td')[0];
+                if (td) {
+                    let txtValue = td.textContent || td.innerText;
+                    tr[i].style.display = txtValue.toLowerCase().includes(searchInput) ? '' : 'none';
+                }
+            }
+        }
+
+        // Función para ordenar la tabla por columnas
+        function sortTable(n) {
+            const table = document.getElementById('productTable');
+            let switching = true;
+            let dir = 'asc';
+            let rows, i, x, y, shouldSwitch, switchCount = 0;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < rows.length - 1; i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName('td')[n];
+                    y = rows[i + 1].getElementsByTagName('td')[n];
+
+                    if ((dir === 'asc' && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) ||
+                        (dir === 'desc' && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase())) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchCount++;
+                } else if (switchCount === 0 && dir === 'asc') {
+                    dir = 'desc';
+                    switching = true;
+                }
+            }
+        }
+    </script>
+</body>
+<footer>Todos los derechos reservados °Franco Lima</footer>
+</html>
+

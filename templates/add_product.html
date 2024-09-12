@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Agregar Producto</h1>
+    <form method="POST" action="{{ url_for('add_product') }}">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            <label for="nombre">Nombre del Producto</label>
+            {{ form.nombre(class="form-control") }}
+        </div>
+        
+        <div>
+            <label for="categoria">Categoría</label>
+            {{ form.categoria(class="form-control") }}
+        </div>
+
+        <div>
+            <label for="precio_compra">Precio de Compra</label>
+            {{ form.precio_compra(class="form-control") }}
+        </div>
+
+        <div>
+            <label for="precio_venta">Precio de Venta</label>
+            {{ form.precio_venta(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+    </form>
+    <a href="{{ url_for('index') }}">Volver a la lista</a>
+</body>
+</html>
