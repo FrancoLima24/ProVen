@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form action="{{ url_for('add_stock') }}" method="POST" class="add-stock-form">
+        <h1>Agregar Stock</h1>
+        
+        <div class="form-group">
+            <label for="nombre_producto">Nombre del producto</label>
+            <input type="text" id="nombre_producto" name="nombre_producto" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" name="cantidad" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_ingreso">Fecha de ingreso</label>
+            <input type="date" id="fecha_ingreso" name="fecha_ingreso" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_vencimiento">Fecha de vencimiento</label>
+            <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar stock</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la Página Principal</a>
+    </form>
+
+    <div class="stock-list-container">
+        <h2>Lista de Stock Disponible</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre del Producto</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Fecha de Vencimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in stock_items %}
+                    <tr>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.fecha_ingreso }}</td>
+                        <td>{{ item.fecha_vencimiento }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

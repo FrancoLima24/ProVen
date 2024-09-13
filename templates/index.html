@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Ventas</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Control</h1>
+    </header>
+
+        <div class="link-container">
+            <a href="{{ url_for('add_product') }}">Agregar Producto</a>
+            <a href="{{ url_for('add_stock') }}">Agregar Stock</a>
+            <a href="{{ url_for('add_sale') }}">Registrar Venta</a>
+        </div>  
+
+    <div class="container">
+        <h2>Resumen de Productos</h2>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar productos...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio de Compra</th>
+                        <th>Precio de Venta</th>
+                        <th>Stock Disponible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.categoria }}</td>
+                        <td>{{ producto.precio_compra }}</td>
+                        <td>{{ producto.precio_venta }}</td>
+                        <td>{{ producto.stock | length }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container chart-container">
+        <h2>Gráfico de Ventas</h2>
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    <footer>
+        <p>© 2024 Tu Empresa. Todos los derechos reservados.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Configuración del gráfico de ventas
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Ventas Mensuales',
+                    data: [120, 190, 300, 500, 250, 400],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

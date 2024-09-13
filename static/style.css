@@ -1,0 +1,433 @@
+/* Estilos generales */ 
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Cabecera principal */
+h1 {
+    font-size: 3rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 5px;
+    background-color: #4CAF50;
+    margin: 10px auto 0;
+    border-radius: 5px;
+}
+
+h1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Cabeceras secundarias */
+h2 {
+    font-size: 2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+
+/* Contenedor principal */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+.container.dark-mode {
+    background-color: #444;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+}
+
+/* Estilos generales para formularios */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Estilos para grupos de formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+/* Estilos para botones de formulario */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.02);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Estilo para enlaces */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    border: 2px solid #4CAF50;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* Estilo específico para add_sale.html */
+.add-sale-form .form-group input,
+.add-sale-form .form-group select {
+    background-color: #f9f9f9;
+}
+
+/* Estilo específico para add_stock.html */
+.add-stock-form .form-group input,
+.add-stock-form .form-group select {
+    background-color: #f9f9f9;
+}
+
+/* Estilo específico para add_product.html */
+.add-product-form .form-group input,
+.add-product-form .form-group select {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para la tabla */
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #555;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 16px;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+td:first-child {
+    border-left: 5px solid #4CAF50;
+}
+
+tr:hover td:first-child {
+    background-color: #4CAF50;
+    color: white;
+    border-left-color: white;
+}
+
+/* Botones secundarios (links) */
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 10px 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    margin: 10px;
+    text-align: center;
+}
+
+a:hover {
+    color: #fff;
+    background-color: #4CAF50;
+    transform: scale(1.05);
+}
+
+/* Contenedor de enlaces centrado */
+.link-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #e0e0e0;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #45a049;
+}
+
+footer .social-icons {
+    margin-top: 10px;
+}
+
+footer .social-icons a {
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+/* Alertas */
+.alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    margin-bottom: 25px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+    animation: fadeIn 0.5s ease;
+}
+
+.alert.error {
+    background-color: #f44336;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+/* Estilo para tarjetas */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Modo oscuro */
+body.dark-mode .container,
+body.dark-mode .card {
+    background-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-control {
+    background-color: #555;
+    border: 1px solid #666;
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+body.dark-mode h1,
+body.dark-mode h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode a {
+    color: #4CAF50;
+}
+
+body.dark-mode a:hover {
+    color: #fff;
+    background-color: #4CAF50;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .form-container {
+        padding: 15px;
+    }
+
+    .table-container {
+        max-height: 300px;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
