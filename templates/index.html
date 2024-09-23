@@ -1,95 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Ventas</title>
+    <title>Panel de Control</title>
     <link rel="stylesheet" href="static/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 
     <header>
-        <h1>Panel de Control</h1>
+        <h1>Panel de Control del Negocio</h1>
     </header>
 
-        <div class="link-container">
-            <a href="{{ url_for('add_product') }}">Agregar Producto</a>
-            <a href="{{ url_for('add_stock') }}">Agregar Stock</a>
-            <a href="{{ url_for('add_sale') }}">Registrar Venta</a>
-        </div>  
-
-    <div class="container">
-        <h2>Resumen de Productos</h2>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Buscar productos...">
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Categoría</th>
-                        <th>Precio de Compra</th>
-                        <th>Precio de Venta</th>
-                        <th>Stock Disponible</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for producto in productos %}
-                    <tr>
-                        <td>{{ producto.id }}</td>
-                        <td>{{ producto.nombre }}</td>
-                        <td>{{ producto.categoria }}</td>
-                        <td>{{ producto.precio_compra }}</td>
-                        <td>{{ producto.precio_venta }}</td>
-                        <td>{{ producto.stock | length }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="link-container">
+        <a href="{{ url_for('add_product') }}" class="action-link">Agregar Producto</a>
+        <a href="{{ url_for('add_stock') }}" class="action-link">Agregar Stock</a>
+        <a href="{{ url_for('add_sale') }}" class="action-link">Registrar Venta</a>
     </div>
 
-    <div class="container chart-container">
-        <h2>Gráfico de Ventas</h2>
-        <canvas id="salesChart"></canvas>
+    <div class="container">
+
+        <!-- Sección de Información General -->
+        <section class="general-info">
+            <h2 class="fixed-title">Tabla General</h2>
+            <input type="text" id="general-search" placeholder="Buscar en Información General">
+            <div class="scrollable-table">
+                <table class="info-general-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0, 'info-general-table')">Producto</th>
+                                <th onclick="sortTable(1, 'info-general-table')">Categoría</th>
+                                <th onclick="sortTable(2, 'info-general-table')">Precio de Compra</th>
+                                <th onclick="sortTable(3, 'info-general-table')">Precio de Venta</th>
+                                <th onclick="sortTable(4, 'info-general-table')">Stock Disponible</th>
+                                <th onclick="sortTable(5, 'info-general-table')">Total Vendido</th>
+                            </tr>
+                        </thead>
+                        <tbody id="general-table-body">
+                            {% for producto in productos %}
+                            <tr>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.categoria }}</td>
+                                <td>{{ producto.precio_compra }}</td>
+                                <td>{{ producto.precio_venta }}</td>
+                                <td>{{ producto.stock|length }}</td> <!-- Cantidad de stock disponible -->
+                                <td>{{ producto.ventas|length }}</td> <!-- Total de ventas -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </section>
+
+        <!-- Tabla de Ventas -->
+        <section class="ventas-info">
+            <button class="accordion-button">Ventas</button>
+            <div class="accordion-content">
+                <input type="text" id="ventas-search" placeholder="Buscar en Ventas">
+                <div class="scrollable-table">
+                    <table class="ventas-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0, 'ventas-table')">Producto</th>
+                                <th onclick="sortTable(1, 'ventas-table')">Fecha de Venta</th>
+                                <th onclick="sortTable(2, 'ventas-table')">Precio de Venta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ventas-table-body">
+                            {% for venta in ventas %}
+                            <tr>
+                                <td>{{ venta.producto.nombre }}</td>
+                                <td>{{ venta.fecha_venta }}</td>
+                                <td>{{ venta.producto.precio_venta }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabla de Stock -->
+        <section class="stock-info">
+            <button class="accordion-button">Stock</button>
+            <div class="accordion-content">
+                <input type="text" id="stock-search" placeholder="Buscar en Stock">
+                <div class="scrollable-table">
+                    <table class="stock-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0, 'stock-table')">Producto</th>
+                                <th onclick="sortTable(1, 'stock-table')">Categoría</th>
+                                <th onclick="sortTable(2, 'stock-table')">Precio de Compra</th>
+                                <th onclick="sortTable(3, 'stock-table')">Fecha de Ingreso</th>
+                                <th onclick="sortTable(4, 'stock-table')">Fecha de Vencimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stock-table-body">
+                            {% for item in stock %}
+                            <tr>
+                                <td>{{ item.producto.nombre }}</td>
+                                <td>{{ item.producto.categoria }}</td>
+                                <td>{{ item.producto.precio_compra }}</td>
+                                <td>{{ item.fecha_ingreso }}</td>
+                                <td>{{ item.fecha_vencimiento }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabla de Productos -->
+        <section class="productos-info">
+            <button class="accordion-button">Productos</button>
+            <div class="accordion-content">
+                <input type="text" id="productos-search" placeholder="Buscar en Productos">
+                <div class="scrollable-table">
+                    <table class="productos-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0, 'productos-table')">Nombre</th>
+                                <th onclick="sortTable(1, 'productos-table')">Categoría</th>
+                                <th onclick="sortTable(2, 'productos-table')">Precio de Compra</th>
+                                <th onclick="sortTable(3, 'productos-table')">Precio de Venta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productos-table-body">
+                            {% for producto in productos %}
+                            <tr>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.categoria }}</td>
+                                <td>{{ producto.precio_compra }}</td>
+                                <td>{{ producto.precio_venta }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <footer>
-        <p>© 2024 Tu Empresa. Todos los derechos reservados.</p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
+        <p>© 2024 Panel de Control del Negocio</p>
     </footer>
 
-    <script>
-        // Configuración del gráfico de ventas
-        const ctx = document.getElementById('salesChart').getContext('2d');
-        const salesChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                datasets: [{
-                    label: 'Ventas Mensuales',
-                    data: [120, 190, 300, 500, 250, 400],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
+    <script src="static/scripts.js"></script>
 </body>
 </html>
+
+
+

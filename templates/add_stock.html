@@ -10,52 +10,46 @@
     <form action="{{ url_for('add_stock') }}" method="POST" class="add-stock-form">
         <h1>Agregar Stock</h1>
         
-        <div class="form-group">
-            <label for="nombre_producto">Nombre del producto</label>
-            <input type="text" id="nombre_producto" name="nombre_producto" required class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="cantidad">Cantidad</label>
-            <input type="number" id="cantidad" name="cantidad" required class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="fecha_ingreso">Fecha de ingreso</label>
-            <input type="date" id="fecha_ingreso" name="fecha_ingreso" required class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="fecha_vencimiento">Fecha de vencimiento</label>
-            <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Agregar stock</button>
-        <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la Página Principal</a>
-    </form>
-
-    <div class="stock-list-container">
-        <h2>Lista de Stock Disponible</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre del Producto</th>
-                        <th>Fecha de Ingreso</th>
-                        <th>Fecha de Vencimiento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in stock_items %}
-                    <tr>
-                        <td>{{ item.producto.nombre }}</td>
-                        <td>{{ item.fecha_ingreso }}</td>
-                        <td>{{ item.fecha_vencimiento }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.producto.label }}<br>
+                {{ form.producto(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.cantidad.label }}<br>
+                {{ form.cantidad(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.fecha_ingreso.label }}<br>
+                {{ form.fecha_ingreso(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.fecha_vencimiento.label }}<br>
+                {{ form.fecha_vencimiento(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Stock</button>
+        </form>
+        
+        <h3>Stock Disponible</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Vendido</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in stock_items %}
+                <tr>
+                    <td>{{ item.producto.nombre }}</td>
+                    <td>{{ item.fecha_ingreso }}</td>
+                    <td>{{ item.fecha_vencimiento }}</td>
+                    <td>{{ 'Sí' if item.vendido else 'No' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        

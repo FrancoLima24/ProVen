@@ -52,3 +52,18 @@ class ConfiguracionUsuario(db.Model):
     id_usuario = db.Column(db.Integer, nullable=False)
     preferencias_reportes = db.Column(db.String(200), nullable=True)
     recibir_alertas = db.Column(db.Boolean, default=True)
+
+class TotalesNegocio(db.Model):
+    __tablename__ = 'TotalesNegocio'
+    id = db.Column(db.Integer, primary_key=True)
+    total_ventas = db.Column(db.Float, nullable=False)
+    productos_vendidos = db.Column(db.Integer, nullable=False)
+    stock_disponible = db.Column(db.Integer, nullable=False)
+    promociones_activas = db.Column(db.Integer, nullable=False)
+    fecha = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    def __init__(self, total_ventas, productos_vendidos, stock_disponible, promociones_activas):
+        self.total_ventas = total_ventas
+        self.productos_vendidos = productos_vendidos
+        self.stock_disponible = stock_disponible
+        self.promociones_activas = promociones_activas
