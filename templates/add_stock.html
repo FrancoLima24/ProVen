@@ -6,50 +6,33 @@
     <title>Agregar Stock</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+
+<div class="container">
+
+    <body>
     <form action="{{ url_for('add_stock') }}" method="POST" class="add-stock-form">
         <h1>Agregar Stock</h1>
         
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.producto.label }}<br>
-                {{ form.producto(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.cantidad.label }}<br>
-                {{ form.cantidad(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.fecha_ingreso.label }}<br>
-                {{ form.fecha_ingreso(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.fecha_vencimiento.label }}<br>
-                {{ form.fecha_vencimiento(class="form-control") }}
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar Stock</button>
-        </form>
-        
-        <h3>Stock Disponible</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Fecha de Ingreso</th>
-                    <th>Fecha de Vencimiento</th>
-                    <th>Vendido</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in stock_items %}
-                <tr>
-                    <td>{{ item.producto.nombre }}</td>
-                    <td>{{ item.fecha_ingreso }}</td>
-                    <td>{{ item.fecha_vencimiento }}</td>
-                    <td>{{ 'Sí' if item.vendido else 'No' }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.producto.label }}<br>
+            {{ form.producto(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.cantidad.label }}<br>
+            {{ form.cantidad(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.fecha_ingreso.label }}<br>
+            {{ form.fecha_ingreso(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.fecha_vencimiento.label }}<br>
+            {{ form.fecha_vencimiento(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Stock</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+    
+</body>
         

@@ -6,7 +6,9 @@
     <title>Registrar Venta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+
+<div class="container">
+    <body>
     <form method="POST" action="{{ url_for('add_sale') }}" class="add-sale-form">
         <h1>Registrar Venta</h1>
         {{ form.hidden_tag() }}
@@ -24,5 +26,7 @@
         <button type="submit" class="btn btn-primary">Registrar Venta</button>
         <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la lista</a>
     </form>
-</body>
+    </body>
+</div>
+
 </html>

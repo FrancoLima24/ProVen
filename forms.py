@@ -11,13 +11,6 @@ class ProductoForm(FlaskForm):
 
 class StockForm(FlaskForm):
     producto = SelectField('Producto', coerce=int, validators=[DataRequired()])
-    fecha_ingreso = DateField('Fecha de Ingreso', format='%Y-%m-%d', validators=[DataRequired()])
-    fecha_vencimiento = DateField('Fecha de Vencimiento', format='%Y-%m-%d', validators=[DataRequired()])
-    cantidad = IntegerField('Cantidad', validators=[DataRequired(), NumberRange(min=1)])
-    submit = SubmitField('Agregar al Stock')
-
-class StockForm(FlaskForm):
-    producto = SelectField('Producto', coerce=int, validators=[DataRequired()])
     cantidad = IntegerField('Cantidad', validators=[DataRequired()])
     fecha_ingreso = DateField('Fecha de Ingreso', format='%Y-%m-%d', validators=[DataRequired()])
     fecha_vencimiento = DateField('Fecha de Vencimiento', format='%Y-%m-%d', validators=[DataRequired()])

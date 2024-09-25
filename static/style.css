@@ -56,6 +56,49 @@ h2 {
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+.form-group {
+    margin-bottom: 15px; /* Espacio entre los grupos de formulario */
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px; /* Ajustar el margen para dar espacio entre los campos */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+    outline: none;
+}
+
+/* Estilos para los botones */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #4CAF50; /* Color del fondo */
+    color: white; /* Color del texto */
+}
+
+.btn-secondary {
+    background-color: #f0f0f0; /* Color de fondo secundario */
+    color: #333; /* Color del texto secundario */
+}
+
+.btn:hover {
+    opacity: 0.8; /* Cambia la opacidad al pasar el mouse */
+}
+
 .container:hover {
     transform: scale(1.01);
 }
@@ -81,7 +124,7 @@ h2 {
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
-    padding: 15px;
+    padding: 50px;
     text-align: center;
     font-size: 1.8rem;
     border: none;
@@ -114,12 +157,29 @@ h2 {
 .scrollable-table {
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 8px;
     margin-top: 10px;
 }
 
 .accordion-content.active .scrollable-table {
     transform: scale(1.02);
+}
+
+/* Achicar y centrar los buscadores */
+input[type="text"] {
+    width: 50%; /* Reducir el ancho */
+    padding: 8px; /* Ajustar el relleno */
+    margin: 10px auto; /* Centrar el buscador */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+    
+}
+
+/* Asegurar que los buscadores se muestren centrados cuando se despliega el acordeón */
+.accordion-content.active input[type="text"] {
+    display: block;
 }
 
 /* Listado de Productos y Stock */
@@ -193,7 +253,7 @@ a {
     padding: 12px 24px;
     border: 2px solid #4CAF50;
     border-radius: 10px;
-    margin: 10px;
+    margin: 14px;
     text-align: center;
     transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
@@ -210,21 +270,116 @@ a:hover {
     margin: 20px 0;
 }
 
-/* Input de búsqueda */
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: none;
+
+/* Personalización de la barra lateral */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Oculta inicialmente la barra lateral */
+    width: 200px;
+    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    background-color: #8cf47c93;
+    padding-top: 20px;
+    overflow-y: auto; /* Habilitar scroll vertical */
+    overflow-x: hidden; /* Evitar scroll horizontal */
+    transition: left 0.4s ease-in-out;
+    z-index: 1000;
 }
 
-.accordion-content.active input[type="text"] {
-    display: block;
+
+
+
+.sidebar.active {
+    left: 0; /* Muestra la barra lateral */
 }
+
+.sidebar a {
+    color: #4CAF50;
+    padding: 5px 10px; /* Reducir el padding para más espacio */
+    text-decoration: none;
+    font-size: 0.9rem; /* Ajustar el tamaño de fuente para más enlaces */
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+
+.sidebar a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Estilos del contenido principal */
+.main-container {
+    margin-left: 200px; /* Ajustamos el contenido cuando la barra está visible */
+    padding: 20px;
+    transition: margin-left 0.4s ease-in-out; /* Animación suave */
+}
+
+.sidebar.active ~ .main-container {
+    margin-left: 200px; /* Deja espacio cuando la barra lateral está visible */
+}
+
+/* Botón para ocultar/mostrar la barra lateral */
+.toggle-sidebar-btn {
+    position: absolute;
+    top: 20px;
+    left: 220px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 1001; /* Para asegurar que esté sobre el contenido */
+    transition: left 0.4s ease-in-out;
+}
+
+.sidebar.active + .toggle-sidebar-btn {
+    left: 220px; /* Se ajusta cuando la barra está visible */
+}
+
+.sidebar.inactive + .toggle-sidebar-btn {
+    left: 20px; /* Mueve el botón hacia el borde cuando la barra está oculta */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar.active {
+    animation: fadeInLeft 0.5s ease forwards;
+}
+
+@keyframes fadeOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+.sidebar.inactive {
+    animation: fadeOutLeft 0.5s ease forwards;
+}
+
+/* Estilo adicional para el cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 /* Footer */
 footer {
@@ -320,35 +475,4 @@ body.dark-mode .alert {
     }
 }
 
-/* Formulario */
-.form-control {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 
-.form-control:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
-    outline: none;
-}
-
-/* Botón de envío */
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}

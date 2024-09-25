@@ -8,56 +8,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+    <div class="toggle-sidebar-btn" id="toggleSidebarBtn">☰</div>
+    
+    <!-- Barra lateral de navegación -->
+    <nav class="sidebar" id="sidebar">
+        <a href="{{ url_for('add_product') }}" class="action-link">Agregar Producto</a>
+        <a href="{{ url_for('add_stock') }}" class="action-link">Agregar Stock</a>
+        <a href="{{ url_for('add_sale') }}" class="action-link">Registrar Venta</a>
+        <a href="#promociones-activas">Promociones Activas</a>
+        <a href="#historial-precios">Historial de Precios</a>
+        <a href="#reportes">Reportes</a>
+        <a href="#alertas">Alertas y Notificaciones</a>
+        <a href="#simulacion-escenarios">Simulación de Escenarios</a>
+        <a href="#configuracion-sistema">Configuración del Sistema</a>
+        <a href="#gestion-usuarios">Gestión de Usuarios</a>
+    </nav>
 
+    <div class="container">
+    
     <header>
         <h1>Panel de Control del Negocio</h1>
     </header>
 
-    <div class="link-container">
-        <a href="{{ url_for('add_product') }}" class="action-link">Agregar Producto</a>
-        <a href="{{ url_for('add_stock') }}" class="action-link">Agregar Stock</a>
-        <a href="{{ url_for('add_sale') }}" class="action-link">Registrar Venta</a>
-    </div>
+    <!-- Contenedor principal ajustado para la barra lateral -->
+    <div class="main-container">
 
-    <div class="container">
+        
 
         <!-- Sección de Información General -->
-        <section class="general-info">
+        <section id="general-info" class="general-info">
             <h2 class="fixed-title">Tabla General</h2>
-            <input type="text" id="general-search" placeholder="Buscar en Información General">
             <div class="scrollable-table">
                 <table class="info-general-table">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable(0, 'info-general-table')">Producto</th>
-                                <th onclick="sortTable(1, 'info-general-table')">Categoría</th>
-                                <th onclick="sortTable(2, 'info-general-table')">Precio de Compra</th>
-                                <th onclick="sortTable(3, 'info-general-table')">Precio de Venta</th>
-                                <th onclick="sortTable(4, 'info-general-table')">Stock Disponible</th>
-                                <th onclick="sortTable(5, 'info-general-table')">Total Vendido</th>
-                            </tr>
-                        </thead>
-                        <tbody id="general-table-body">
-                            {% for producto in productos %}
-                            <tr>
-                                <td>{{ producto.nombre }}</td>
-                                <td>{{ producto.categoria }}</td>
-                                <td>{{ producto.precio_compra }}</td>
-                                <td>{{ producto.precio_venta }}</td>
-                                <td>{{ producto.stock|length }}</td> <!-- Cantidad de stock disponible -->
-                                <td>{{ producto.ventas|length }}</td> <!-- Total de ventas -->
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0, 'info-general-table')">Producto</th>
+                            <th onclick="sortTable(1, 'info-general-table')">Categoría</th>
+                            <th onclick="sortTable(2, 'info-general-table')">Precio de Compra</th>
+                            <th onclick="sortTable(3, 'info-general-table')">Precio de Venta</th>
+                            <th onclick="sortTable(4, 'info-general-table')">Stock Disponible</th>
+                            <th onclick="sortTable(5, 'info-general-table')">Total Vendido</th>
+                        </tr>
+                    </thead>
+                    <tbody id="general-table-body">
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.categoria }}</td>
+                            <td>{{ producto.precio_compra }}</td>
+                            <td>{{ producto.precio_venta }}</td>
+                            <td>{{ producto.stock|length }}</td>
+                            <td>{{ producto.ventas|length }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- Tabla de Ventas -->
-        <section class="ventas-info">
+        <!-- Sección de Ventas -->
+        <section id="ventas-info" class="ventas-info">
             <button class="accordion-button">Ventas</button>
             <div class="accordion-content">
-                <input type="text" id="ventas-search" placeholder="Buscar en Ventas">
+                <input type="text" id="ventas-search" placeholder="Buscar en Ventas" onkeyup="filterTable('ventas-search', 'ventas-table')">
                 <div class="scrollable-table">
                     <table class="ventas-table">
                         <thead>
@@ -81,11 +94,11 @@
             </div>
         </section>
 
-        <!-- Tabla de Stock -->
-        <section class="stock-info">
+        <!-- Sección de Stock -->
+        <section id="stock-info" class="stock-info">
             <button class="accordion-button">Stock</button>
             <div class="accordion-content">
-                <input type="text" id="stock-search" placeholder="Buscar en Stock">
+                <input type="text" id="stock-search" placeholder="Buscar en Stock" onkeyup="filterTable('stock-search', 'stock-table')">
                 <div class="scrollable-table">
                     <table class="stock-table">
                         <thead>
@@ -113,11 +126,11 @@
             </div>
         </section>
 
-        <!-- Tabla de Productos -->
-        <section class="productos-info">
+        <!-- Sección de Productos -->
+        <section id="productos-info" class="productos-info">
             <button class="accordion-button">Productos</button>
             <div class="accordion-content">
-                <input type="text" id="productos-search" placeholder="Buscar en Productos">
+                <input type="text" id="productos-search" placeholder="Buscar en Productos" onkeyup="filterTable('productos-search', 'productos-table')">
                 <div class="scrollable-table">
                     <table class="productos-table">
                         <thead>
@@ -152,6 +165,3 @@
     <script src="static/scripts.js"></script>
 </body>
 </html>
-
-
-
