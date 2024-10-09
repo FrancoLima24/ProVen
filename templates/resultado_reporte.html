@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del Reporte</title>
+</head>
+<body>
+    <h1>Resultado del Reporte de Ventas</h1>
+
+    {% if reporte %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Total Vendido</th>
+                    <th>Total Ventas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in reporte %}
+                <tr>
+                    <td>{{ row.producto }}</td>
+                    <td>{{ row.total_vendido }}</td>
+                    <td>{{ row.total_ventas }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No se encontraron resultados para el rango de fechas y producto especificado.</p>
+    {% endif %}
+
+    <a href="{{ url_for('reports') }}">Volver</a>
+</body>
+</html>

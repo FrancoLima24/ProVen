@@ -70,20 +70,29 @@ function filterTable(inputId, tableClass) {
     }
 }
 
+// Selecciona todos los botones de dropdown
+const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+// Añade un evento de clic para mostrar u ocultar el menú desplegable
+dropdownBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const dropdownContent = this.nextElementSibling;
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+
+// Puedes agregar efectos adicionales aquí si lo deseas
 document.addEventListener('DOMContentLoaded', function () {
-    const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
-    const sidebar = document.getElementById('sidebar');
-    const mainContainer = document.querySelector('.main-container');
-
-    toggleSidebarBtn.addEventListener('click', function () {
-        // Cambiar la clase 'active' de la barra lateral
-        sidebar.classList.toggle('active');
-
-        // Ajustar el contenedor principal para dar espacio a la barra lateral
-        if (sidebar.classList.contains('active')) {
-            mainContainer.style.marginLeft = '200px';
-        } else {
-            mainContainer.style.marginLeft = '0';
-        }
+    const inputs = document.querySelectorAll('.textbox input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentNode.classList.add('active');
+        });
+        input.addEventListener('blur', () => {
+            if (input.value === '') {
+                input.parentNode.classList.remove('active');
+            }
+        });
     });
 });

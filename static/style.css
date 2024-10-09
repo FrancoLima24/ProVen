@@ -1,3 +1,5 @@
+
+
 /* Estilos generales */
 body {
     font-family: 'Arial', sans-serif;
@@ -42,18 +44,36 @@ h2 {
     text-align: center;
     margin-bottom: 20px;
     font-weight: 600;
+    padding: 15px;
     letter-spacing: 1.2px;
 }
 
 /* Contenedor principal */
 .container {
-    width: 85%;
-    margin: 20px auto;
-    background-color: #fff;
+    width: 80%; /* Ajustar este valor si es necesario */
+    margin: 20px auto; /* Esto asegura que esté centrado */
     padding: 30px;
     box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
+    text-align: left;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    overflow-x: auto; /* Asegura que si algo se sale del contenedor, no rompa el diseño */
+}
+
+
+/* Estilos label y Input */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .form-group {
@@ -82,7 +102,7 @@ h2 {
     margin: 10px;
     border-radius: 5px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .btn-primary {
@@ -117,6 +137,59 @@ h2 {
 .total-item h2 {
     color: #4CAF50;
     font-size: 1.5em;
+}
+
+/* Estilos para la barra de navegación horizontal */
+.horizontal-menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #333;
+    padding: 2px 0;
+    margin: 2px 0;
+}
+
+/* Estilo para los botones principales de los menús desplegables */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    background-color: #333;
+    color: white;
+    padding: 2px 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #575757;
+}
+
+/* Contenido del menú desplegable */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content:hover {
+    display: block; /* Esto asegura que al mover el puntero sobre el menú desplegable no se cierre */
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none; /* Asegura que esté inicialmente oculto */
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+    flex-direction: column;
+    transition: all 0.3s ease; /* Añade una transición suave */
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex; /* Flex para asegurar la columna */
+    transition: all 0.3s ease;
 }
 
 /* Acordeón */
@@ -244,16 +317,23 @@ tr:hover {
     background-color: #ddd;
 }
 
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
 /* Botones secundarios (links) */
 a {
     display: inline-block;
     text-decoration: none;
     color: #4CAF50;
     font-weight: bold;
-    padding: 12px 24px;
-    border: 2px solid #4CAF50;
+    padding: 2px 4px;
+    border: 1px solid #4CAF50;
     border-radius: 10px;
-    margin: 14px;
+    margin: 4px;
     text-align: center;
     transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
@@ -264,49 +344,7 @@ a:hover {
     transform: scale(1.05);
 }
 
-/* Contenedor de enlaces centrado */
-.link-container {
-    text-align: center;
-    margin: 20px 0;
-}
 
-
-/* Personalización de la barra lateral */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -200px; /* Oculta inicialmente la barra lateral */
-    width: 200px;
-    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-    background-color: #8cf47c93;
-    padding-top: 20px;
-    overflow-y: auto; /* Habilitar scroll vertical */
-    overflow-x: hidden; /* Evitar scroll horizontal */
-    transition: left 0.4s ease-in-out;
-    z-index: 1000;
-}
-
-
-
-
-.sidebar.active {
-    left: 0; /* Muestra la barra lateral */
-}
-
-.sidebar a {
-    color: #4CAF50;
-    padding: 5px 10px; /* Reducir el padding para más espacio */
-    text-decoration: none;
-    font-size: 0.9rem; /* Ajustar el tamaño de fuente para más enlaces */
-    display: block;
-    transition: background-color 0.3s ease;
-}
-
-
-.sidebar a:hover {
-    background-color: #fff;
-    color: #333;
-}
 
 /* Estilos del contenido principal */
 .main-container {
@@ -319,58 +357,7 @@ a:hover {
     margin-left: 200px; /* Deja espacio cuando la barra lateral está visible */
 }
 
-/* Botón para ocultar/mostrar la barra lateral */
-.toggle-sidebar-btn {
-    position: absolute;
-    top: 20px;
-    left: 220px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    z-index: 1001; /* Para asegurar que esté sobre el contenido */
-    transition: left 0.4s ease-in-out;
-}
 
-.sidebar.active + .toggle-sidebar-btn {
-    left: 220px; /* Se ajusta cuando la barra está visible */
-}
-
-.sidebar.inactive + .toggle-sidebar-btn {
-    left: 20px; /* Mueve el botón hacia el borde cuando la barra está oculta */
-}
-
-/* Animación de desvanecimiento */
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.sidebar.active {
-    animation: fadeInLeft 0.5s ease forwards;
-}
-
-@keyframes fadeOutLeft {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-}
-
-.sidebar.inactive {
-    animation: fadeOutLeft 0.5s ease forwards;
-}
 
 /* Estilo adicional para el cuerpo */
 body {
@@ -476,3 +463,95 @@ body.dark-mode .alert {
 }
 
 
+/* Estilos para el contenedor del login */
+.login-wrapper {
+    display: flex; /* Usamos flexbox para centrar */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa la altura completa de la ventana */
+    background-color: #f7f7f7; /* Color de fondo para el wrapper (opcional) */
+}
+
+/* Estilos para el contenedor del login */
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 350px; /* Ancho del contenedor */
+    text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo para los grupos de formularios */
+.form-grupo {
+    margin-bottom: 20px; /* Espacio inferior entre grupos de formularios */
+}
+
+.form-grupo label {
+    display: block; /* Asegura que la etiqueta ocupa todo el ancho */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+    color: #555; /* Color del texto de la etiqueta */
+    font-weight: bold; /* Negrita para el texto de la etiqueta */
+}
+
+.form-grupo input[type="text"],
+.form-grupo input[type="password"] {
+    width: 100%; /* Ancho completo del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Color del borde */
+    border-radius: 8px; /* Bordes redondeados */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+}
+
+.form-grupo input[type="text"]:focus,
+.form-grupo input[type="password"]:focus {
+    border-color: #5cb85c; /* Color del borde al hacer foco */
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 5px rgba(92, 184, 92, 0.5); /* Sombra suave al foco */
+}
+
+/* Estilo para el botón de inicio de sesión */
+.login-button {
+    width: 100%; /* Ancho completo */
+    padding: 12px; /* Espaciado interno */
+    background-color: #5cb85c; /* Color de fondo */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    color: white; /* Color del texto */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+}
+
+.login-button:hover {
+    background-color: #4cae4c; /* Color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala al pasar el mouse */
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+    color: red; /* Color del texto de error */
+    margin: 10px 0; /* Margen superior e inferior */
+    font-weight: bold; /* Negrita para el mensaje */
+}
+
+/* Estilo para los enlaces de la parte inferior */
+.footer-links {
+    margin-top: 15px; /* Espacio superior */
+}
+
+.forgot-password {
+    text-decoration: none; /* Sin subrayado */
+    color: #5cb85c; /* Color del enlace */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+.forgot-password:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}

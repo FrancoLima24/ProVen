@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, IntegerField, DateField, SubmitField, FloatField, SelectField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import StringField, DateTimeField, IntegerField, DateField, SubmitField, FloatField, SelectField, PasswordField
+from wtforms.validators import DataRequired, NumberRange, Length
 
 class ProductoForm(FlaskForm):
     nombre = StringField('Nombre del Producto', validators=[DataRequired()])
@@ -21,3 +21,15 @@ class VentaForm(FlaskForm):
     producto = SelectField('Producto', coerce=int, validators=[DataRequired()])
     cantidad = IntegerField('Cantidad a vender', validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField('Registrar Venta')
+    
+class LoginForm(FlaskForm):
+    nombre = StringField('Nombre de usuario', validators=[DataRequired()])
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    submit = SubmitField('Iniciar sesión')
+    
+class RegisterForm(FlaskForm):
+    nombre = StringField('Nombre de usuario', validators=[DataRequired()])
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirmar contraseña', validators=[DataRequired()])
+    id_rol = SelectField('Rol', coerce=int, validators=[DataRequired()])
+    submit = SubmitField('Registrarse')

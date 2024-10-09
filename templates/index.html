@@ -8,34 +8,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-    <div class="toggle-sidebar-btn" id="toggleSidebarBtn">☰</div>
     
-    <!-- Barra lateral de navegación -->
-    <nav class="sidebar" id="sidebar">
-        <a href="{{ url_for('add_product') }}" class="action-link">Agregar Producto</a>
-        <a href="{{ url_for('add_stock') }}" class="action-link">Agregar Stock</a>
-        <a href="{{ url_for('add_sale') }}" class="action-link">Registrar Venta</a>
-        <a href="#promociones-activas">Promociones Activas</a>
-        <a href="#historial-precios">Historial de Precios</a>
-        <a href="#reportes">Reportes</a>
-        <a href="#alertas">Alertas y Notificaciones</a>
-        <a href="#simulacion-escenarios">Simulación de Escenarios</a>
-        <a href="#configuracion-sistema">Configuración del Sistema</a>
-        <a href="#gestion-usuarios">Gestión de Usuarios</a>
-    </nav>
 
     <div class="container">
     
     <header>
         <h1>Panel de Control del Negocio</h1>
     </header>
-
-    <!-- Contenedor principal ajustado para la barra lateral -->
-    <div class="main-container">
-
+     <!-- Barra de navegación horizontal con menús desplegables -->
+     <nav class="horizontal-menu">
+        <!-- Gestión de Inventario -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Gestión de Inventario</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('add_product') }}">Agregar Producto</a>
+                <a href="{{ url_for('add_stock') }}">Agregar Stock</a>
+                <a href="{{ url_for('add_sale') }}">Registrar Venta</a>
+            </div>
+        </div>
         
+        <!-- Promociones y Precios -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Promociones y Precios</button>
+            <div class="dropdown-content">
+                <a href="#promociones-activas">Promociones Activas</a>
+                <a href="#historial-precios">Historial de Precios</a>
+            </div>
+        </div>
+        
+        <!-- Reportes y Alertas -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Reportes y Alertas</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('reports') }}">Reportes</a>
+                <a href="#alertas">Alertas</a>
+            </div>
+        </div>
 
-        <!-- Sección de Información General -->
+        <!-- Configuración y Gestión de Usuarios -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Configuración y Usuarios</button>
+            <div class="dropdown-content">
+                <a href="#configuracion-sistema">Configuración del Sistema</a>
+                <a href="{{ url_for('register') }}">Registrar Usuario</a>
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Contenedor principal ajustado para la barra lateral -->
+    
+
+                <!-- Sección de Información General -->
         <section id="general-info" class="general-info">
             <h2 class="fixed-title">Tabla General</h2>
             <div class="scrollable-table">
@@ -155,8 +178,6 @@
                 </div>
             </div>
         </section>
-
-    </div>
 
     <footer>
         <p>© 2024 Panel de Control del Negocio</p>

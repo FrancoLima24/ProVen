@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'mi_clave_secreta'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'TORRIKO'
     SQLALCHEMY_DATABASE_URI = (
         'mssql+pyodbc://sa:sql@localhost/VentasPro'
         '?driver=ODBC+Driver+17+for+SQL+Server'
